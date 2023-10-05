@@ -30,18 +30,16 @@ describe("Test update product use case", () => {
     const product = ProductFactory.createProduct("Book", 20);
     await productRepository.create(product);
 
-    const output = {
-      id: expect.any(String),
-      name: "Book Red",
-      price: 10
-    };
-
-    const result = await usecase.execute({
+    const input = {
       id: product.id,
-      name: "Book Red",
-      price: 10
-    });
+      name: "Pen",
+      price: 5
+    }
 
-    expect(result).toEqual(output);
+    const result = await usecase.execute(input)
+
+    expect(result.id).toEqual(input.id);
+    expect(result.name).toEqual("Pen");
+    expect(result.price).toEqual(5);
   });
 });
